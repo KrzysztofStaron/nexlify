@@ -2,9 +2,10 @@ interface StatusIndicatorProps {
   service: string;
   status: "connected" | "active" | "synced" | "ready";
   color: "green" | "blue" | "purple" | "orange";
+  translatedStatusText?: string;
 }
 
-export function StatusIndicator({ service, status, color }: StatusIndicatorProps) {
+export function StatusIndicator({ service, status, color, translatedStatusText }: StatusIndicatorProps) {
   const colorClasses = {
     green: {
       container: "bg-green-50 border-green-200",
@@ -53,7 +54,9 @@ export function StatusIndicator({ service, status, color }: StatusIndicatorProps
         {/* Service and status text */}
         <div className="flex flex-col min-w-0">
           <span className={`text-xs font-semibold ${colors.text} truncate`}>{service}</span>
-          <span className={`text-xs ${colors.text} opacity-70 font-medium`}>{statusText[status]}</span>
+          <span className={`text-xs ${colors.text} opacity-70 font-medium`}>
+            {translatedStatusText || statusText[status]}
+          </span>
         </div>
       </div>
     </div>

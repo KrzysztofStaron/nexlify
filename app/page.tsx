@@ -131,6 +131,15 @@ const translations = {
     rating: "Rating",
     analysisCompleted: "Task Completed",
     tasksCreated: "3 tasks created, 2 messages sent",
+
+    // Demo section
+    demoUserMessage: '"Create a new project in Notion for Q1 planning"',
+    demoProcessing: 'Creating Notion page "Q1 Planning"...',
+    demoCompleted: "✓ Page created with sections for Goals, Timeline, and Resources",
+    statusConnected: "Connected",
+    statusActive: "Active",
+    statusSynced: "Synced",
+    statusReady: "Ready",
   },
   pl: {
     badge: "Asystent telefonu z AI",
@@ -219,6 +228,15 @@ const translations = {
     rating: "Ocena",
     analysisCompleted: "Zadanie wykonane",
     tasksCreated: "3 zadania utworzone, 2 wiadomości wysłane",
+
+    // Demo section
+    demoUserMessage: '"Stwórz nowy projekt w Notion dla planowania Q1"',
+    demoProcessing: 'Tworzenie strony Notion "Planowanie Q1"...',
+    demoCompleted: "✓ Strona utworzona z sekcjami: Cele, Harmonogram i Zasoby",
+    statusConnected: "Połączono",
+    statusActive: "Aktywny",
+    statusSynced: "Zsynchronizowano",
+    statusReady: "Gotowy",
   },
 };
 
@@ -389,26 +407,30 @@ const getTargetUsers = (t: any) => [
 ];
 
 // Data for status indicators
-const statusIndicators = [
+const getStatusIndicators = (t: any) => [
   {
     service: "Notion",
     status: "connected" as const,
     color: "green" as const,
+    translatedStatusText: t.statusConnected,
   },
   {
     service: "Linear",
     status: "active" as const,
     color: "blue" as const,
+    translatedStatusText: t.statusActive,
   },
   {
     service: "Vercel",
     status: "synced" as const,
     color: "purple" as const,
+    translatedStatusText: t.statusSynced,
   },
   {
     service: "eBay",
     status: "ready" as const,
     color: "orange" as const,
+    translatedStatusText: t.statusReady,
   },
 ];
 
@@ -600,27 +622,26 @@ export default function Home() {
                     </div>
                     <div className="space-y-3">
                       <div className="bg-white p-3 rounded-lg shadow-sm">
-                        <p className="text-sm text-gray-700">"Create a new project in Notion for Q1 planning"</p>
+                        <p className="text-sm text-gray-700">{t.demoUserMessage}</p>
                       </div>
                       <div className="bg-indigo-100 p-3 rounded-lg ml-8">
-                        <p className="text-sm text-indigo-900">Creating Notion page "Q1 Planning"...</p>
+                        <p className="text-sm text-indigo-900">{t.demoProcessing}</p>
                       </div>
                       <div className="bg-indigo-100 p-3 rounded-lg ml-8">
-                        <p className="text-sm text-indigo-900">
-                          ✓ Page created with sections for Goals, Timeline, and Resources
-                        </p>
+                        <p className="text-sm text-indigo-900">{t.demoCompleted}</p>
                       </div>
                     </div>
                   </div>
 
                   {/* Status indicators */}
                   <div className="grid grid-cols-2 gap-3">
-                    {statusIndicators.map(indicator => (
+                    {getStatusIndicators(t).map(indicator => (
                       <StatusIndicator
                         key={indicator.service}
                         service={indicator.service}
                         status={indicator.status}
                         color={indicator.color}
+                        translatedStatusText={indicator.translatedStatusText}
                       />
                     ))}
                   </div>
