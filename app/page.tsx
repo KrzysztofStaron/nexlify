@@ -249,11 +249,7 @@ const integrations = [
   {
     name: "Notion",
     description: "Notes & Databases",
-    icon: (
-      <svg viewBox="0 0 100 100" className="w-full h-full">
-        <path d="M20 20v60h60V20H20zm10 10h40v40H30V30z" fill="currentColor" className="text-gray-800" />
-      </svg>
-    ),
+    icon: <Image src="/notion.webp" alt="Notion" width={100} height={100} />,
   },
   {
     name: "Linear",
