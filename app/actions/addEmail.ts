@@ -9,13 +9,19 @@ import { collection, doc, getFirestore, setDoc } from "firebase/firestore";
 // Your web app's Firebase configuration
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
-  apiKey: "AIzaSyAJWUjvSnTWT38TJMQzQcE4Ivgh8KDIAIY",
-  authDomain: "auto-aniper.firebaseapp.com",
-  projectId: "auto-aniper",
-  storageBucket: "auto-aniper.firebasestorage.app",
-  messagingSenderId: "28822929505",
-  appId: "1:28822929505:web:9cbeb6785290f89bb7aa20",
-  measurementId: "G-EJNDC6QLTZ",
+  apiKey: "AIzaSyCs4auxAzIfzeNRQDeix8yWDb9OnelN_90",
+
+  authDomain: "nexlify-cacc8.firebaseapp.com",
+
+  projectId: "nexlify-cacc8",
+
+  storageBucket: "nexlify-cacc8.firebasestorage.app",
+
+  messagingSenderId: "120226840781",
+
+  appId: "1:120226840781:web:9dd31f2ca76c658ff12984",
+
+  measurementId: "G-7J98JV10S0",
 };
 
 // Initialize Firebase
@@ -29,4 +35,6 @@ export async function addUser(email: string, details: string) {
     email: email,
     details: details || "",
   });
+
+  console.log("User added to waitlist", email, details);
 }

@@ -65,7 +65,10 @@ export function WaitlistModal({ isOpen, onClose, language }: WaitlistModalProps)
 
     try {
       // Add user to Firebase database
-      await addUser(email.trim(), `Waitlist signup from landing page - Language: ${language}`);
+      await addUser(
+        email.trim(),
+        `Waitlist signup from landing page - Language: ${language} - ${new Date().toISOString()}`
+      );
 
       setIsSubmitting(false);
       setIsSuccess(true);
@@ -144,7 +147,7 @@ export function WaitlistModal({ isOpen, onClose, language }: WaitlistModalProps)
                     value={email}
                     onChange={e => setEmail(e.target.value)}
                     placeholder={t.emailPlaceholder}
-                    className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all"
+                    className="text-black w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all"
                     required
                     disabled={isSubmitting}
                   />
@@ -181,7 +184,7 @@ export function WaitlistModal({ isOpen, onClose, language }: WaitlistModalProps)
                 >
                   {t.retryButton}
                 </Button>
-                <Button onClick={handleClose} variant="outline" className="px-6 py-2">
+                <Button onClick={handleClose} variant="outline" className="px-6 py-2 text-black">
                   {t.closeButton}
                 </Button>
               </div>
@@ -194,7 +197,7 @@ export function WaitlistModal({ isOpen, onClose, language }: WaitlistModalProps)
               </div>
               <h3 className="text-xl font-bold text-gray-900 mb-2">{t.successTitle}</h3>
               <p className="text-gray-600 mb-6">{t.successMessage}</p>
-              <Button onClick={handleClose} variant="outline" className="px-6 py-2">
+              <Button onClick={handleClose} variant="outline" className="px-6 py-2 text-black">
                 {t.closeButton}
               </Button>
             </div>
