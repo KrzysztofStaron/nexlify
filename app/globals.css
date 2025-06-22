@@ -12,19 +12,20 @@
   --font-mono: var(--font-geist-mono);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
-
+/* Force light mode - ignore system dark mode preference */
 html {
   scroll-behavior: smooth;
+  background-color: #ffffff !important;
+  color: #171717 !important;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
+  background: #ffffff !important;
+  color: #171717 !important;
   font-family: Arial, Helvetica, sans-serif;
+}
+
+/* Override any dark mode styles that might be applied */
+* {
+  color-scheme: light !important;
 }
