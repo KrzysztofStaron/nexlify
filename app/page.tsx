@@ -501,7 +501,7 @@ export default function Home() {
               <Calendar className="h-8 w-8 text-purple-600" />
             </div>
           </div>
-          <div className="absolute bottom-40 left-20 animate-pulse delay-500">
+          <div className="absolute bottom-40 lg:bottom-40 left-20 animate-pulse delay-500">
             <div className="bg-gradient-to-br from-pink-400/20 to-indigo-400/20 rounded-full p-4">
               <Settings className="h-8 w-8 text-pink-600" />
             </div>
@@ -528,7 +528,7 @@ export default function Home() {
             {/* Subtitle */}
             <p className="text-base sm:text-lg md:text-xl lg:text-2xl text-gray-700 mb-6 sm:mb-8 max-w-4xl mx-auto leading-relaxed px-4">
               {t.subtitle1}
-              <br className="hidden md:block" />
+              <br />
               <span className="font-semibold text-gray-900">{t.subtitle2}</span>
             </p>
 
