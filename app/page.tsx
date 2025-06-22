@@ -39,6 +39,8 @@ import { FeatureCard } from "@/components/FeatureCard";
 import { ProcessStep } from "@/components/ProcessStep";
 import { TargetUserCard } from "@/components/TargetUserCard";
 import { QuickFeatureCard } from "@/components/QuickFeatureCard";
+import { StatusIndicator } from "@/components/StatusIndicator";
+import { WaitlistModal } from "@/components/WaitlistModal";
 
 // Translation object
 const translations = {
@@ -390,8 +392,33 @@ const getTargetUsers = (t: any) => [
   },
 ];
 
+// Data for status indicators
+const statusIndicators = [
+  {
+    service: "Notion",
+    status: "connected" as const,
+    color: "green" as const,
+  },
+  {
+    service: "Linear",
+    status: "active" as const,
+    color: "blue" as const,
+  },
+  {
+    service: "Vercel",
+    status: "synced" as const,
+    color: "purple" as const,
+  },
+  {
+    service: "eBay",
+    status: "ready" as const,
+    color: "orange" as const,
+  },
+];
+
 export default function Home() {
   const [language, setLanguage] = useState<"en" | "pl">("en");
+  const [isWaitlistModalOpen, setIsWaitlistModalOpen] = useState(false);
   const t = translations[language];
 
   useEffect(() => {
@@ -403,6 +430,14 @@ export default function Home() {
       setLanguage("en");
     }
   }, []);
+
+  const openWaitlistModal = () => {
+    setIsWaitlistModalOpen(true);
+  };
+
+  const closeWaitlistModal = () => {
+    setIsWaitlistModalOpen(false);
+  };
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-indigo-50 via-white to-purple-50">
@@ -481,13 +516,14 @@ export default function Home() {
 
             {/* CTA Buttons */}
             <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-8 sm:mb-12">
-              <Link href="https://nexlify.ai">
-                <Button className="bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white px-8 sm:px-12 lg:px-16 py-3 sm:py-4 lg:py-6 text-base sm:text-lg font-semibold rounded-xl shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-200 w-full sm:w-auto group">
-                  <Bot className="mr-2 h-4 w-4 sm:h-5 sm:w-5" />
-                  {t.startNow}
-                  <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
-                </Button>
-              </Link>
+              <Button
+                onClick={openWaitlistModal}
+                className="bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white px-8 sm:px-12 lg:px-16 py-3 sm:py-4 lg:py-6 text-base sm:text-lg font-semibold rounded-xl shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-200 w-full sm:w-auto group"
+              >
+                <Bot className="mr-2 h-4 w-4 sm:h-5 sm:w-5" />
+                {t.startNow}
+                <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
+              </Button>
               <Link href="#how-it-works">
                 <Button
                   variant="outline"
@@ -532,11 +568,15 @@ export default function Home() {
         <div className="container mx-auto px-4">
           <div className="text-center mb-16">
             <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
-              {t.howItWorksTitle.split(" ").map(e => {
-                if (e === "Nexlify") {
-                  return <span className="text-indigo-600">{e + " "}</span>;
+              {t.howItWorksTitle.split(" ").map((word, index) => {
+                if (word === "Nexlify") {
+                  return (
+                    <span key={index} className="text-indigo-600">
+                      {word + " "}
+                    </span>
+                  );
                 }
-                return e + " ";
+                return <span key={index}>{word + " "}</span>;
               })}
             </h2>
             <p className="text-xl text-gray-600 max-w-3xl mx-auto">{t.howItWorksSubtitle}</p>
@@ -579,30 +619,14 @@ export default function Home() {
 
                   {/* Status indicators */}
                   <div className="grid grid-cols-2 gap-3">
-                    <div className="bg-gradient-to-r from-green-50 to-emerald-50 p-3 rounded-lg">
-                      <div className="flex items-center gap-2">
-                        <Check className="h-4 w-4 text-green-600" />
-                        <span className="text-sm font-medium text-black">Notion Connected</span>
-                      </div>
-                    </div>
-                    <div className="bg-gradient-to-r from-blue-50 to-indigo-50 p-3 rounded-lg">
-                      <div className="flex items-center gap-2">
-                        <Check className="h-4 w-4 text-blue-600" />
-                        <span className="text-sm font-medium text-black">Linear Active</span>
-                      </div>
-                    </div>
-                    <div className="bg-gradient-to-r from-purple-50 to-pink-50 p-3 rounded-lg">
-                      <div className="flex items-center gap-2">
-                        <Check className="h-4 w-4 text-purple-600" />
-                        <span className="text-sm font-medium text-black">Vercel Synced</span>
-                      </div>
-                    </div>
-                    <div className="bg-gradient-to-r from-orange-50 to-red-50 p-3 rounded-lg">
-                      <div className="flex items-center gap-2">
-                        <Check className="h-4 w-4 text-orange-600" />
-                        <span className="text-sm font-medium text-black">eBay Ready</span>
-                      </div>
-                    </div>
+                    {statusIndicators.map(indicator => (
+                      <StatusIndicator
+                        key={indicator.service}
+                        service={indicator.service}
+                        status={indicator.status}
+                        color={indicator.color}
+                      />
+                    ))}
                   </div>
                 </div>
                 <div className="absolute inset-0 bg-gradient-to-r from-indigo-200/20 to-purple-200/20 rounded-2xl transform rotate-6"></div>
@@ -676,13 +700,14 @@ export default function Home() {
             <p className="text-xl text-indigo-100 mb-12 max-w-2xl mx-auto">{t.readySubtitle}</p>
 
             <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-              <Link href="https://nexlify.ai">
-                <Button className="bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white px-8 sm:px-12 lg:px-16 py-3 sm:py-4 lg:py-6 text-base sm:text-lg font-semibold rounded-xl shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-200 w-full sm:w-auto group">
-                  <Bot className="mr-2 h-4 w-4 sm:h-5 sm:w-5" />
-                  {t.startNow}
-                  <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
-                </Button>
-              </Link>
+              <Button
+                onClick={openWaitlistModal}
+                className="bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white px-8 sm:px-12 lg:px-16 py-3 sm:py-4 lg:py-6 text-base sm:text-lg font-semibold rounded-xl shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-200 w-full sm:w-auto group"
+              >
+                <Bot className="mr-2 h-4 w-4 sm:h-5 sm:w-5" />
+                {t.startNow}
+                <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
+              </Button>
             </div>
           </div>
         </div>
@@ -702,6 +727,9 @@ export default function Home() {
           </div>
         </div>
       </footer>
+
+      {/* Waitlist Modal */}
+      <WaitlistModal isOpen={isWaitlistModalOpen} onClose={closeWaitlistModal} language={language} />
 
       <style jsx>{`
         @keyframes gradient {
