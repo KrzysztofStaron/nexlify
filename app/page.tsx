@@ -501,7 +501,7 @@ export default function Home() {
               <Calendar className="h-8 w-8 text-purple-600" />
             </div>
           </div>
-          <div className="absolute bottom-40 lg:bottom-40 left-20 animate-pulse delay-500">
+          <div className="absolute bottom-30 lg:bottom-40 left-20 animate-pulse delay-500">
             <div className="bg-gradient-to-br from-pink-400/20 to-indigo-400/20 rounded-full p-4">
               <Settings className="h-8 w-8 text-pink-600" />
             </div>
